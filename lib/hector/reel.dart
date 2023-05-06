@@ -37,7 +37,9 @@ class _CharacterReelState extends State<CharacterReel> {
                 aspectRatio: _controller.value.aspectRatio,
                 child: VideoPlayer(_controller),
               )
-            : Container(),
+            : Container(
+                child: const CircularProgressIndicator(),
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

@@ -37,7 +37,7 @@ class _HectorState extends State<Hector> {
             await player.play();
           },
           onLongPress: () async {
-            log("Ding Pressed twice");
+            log("Ding Pressed long");
             gusDeath(context);
           },
           child: Image.asset(
