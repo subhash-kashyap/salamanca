@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salamanca/hector/hector.dart';
+import 'package:salamanca/dummy.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ class _DingDingState extends State<DingDing> {
       title: 'BrBa',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-      home: Hector(),
+      home: DummyWidget(),
     );
   }
 }
