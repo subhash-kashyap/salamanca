@@ -22,7 +22,7 @@ class _DingDingState extends State<DingDing> {
       title: 'BrBa',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-      home: DummyWidget(),
+      home: MainWidget(),
     );
   }
 }
