@@ -14,6 +14,10 @@ class _SaulState extends State<Saul> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Image.asset(
+          'assets/image/saul.png',
+          height: MediaQuery.of(context).size.height / 8,
+        ),
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         elevation: 0.0,
@@ -26,8 +30,42 @@ class _SaulState extends State<Saul> {
           ),
         ],
       ),
-      body: Center(
-        child: Text("I know a guy who knows a guy who knows a guy"),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width / 2,
+              height: MediaQuery.of(context).size.width / 2,
+              color: Colors.green[300],
+              child: Center(
+                child: Text("It's show time"),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.width / 2,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: TextField(
+              decoration: InputDecoration(
+                fillColor: Theme.of(context).primaryColor,
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.send),
+                  onPressed: () {
+                    log("pressed");
+                  },
+                ),
+                border: OutlineInputBorder(),
+                hintText: 'What can I help you with?',
+              ),
+              onSubmitted: (value) {
+                log("Value $value");
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
