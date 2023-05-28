@@ -2,16 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:salamanca/hector/reel.dart';
+import 'package:salamanca/characters/hector/reel.dart';
 
-class Twins extends StatefulWidget {
-  const Twins({super.key});
+class Lalo extends StatefulWidget {
+  const Lalo({super.key});
 
   @override
-  State<Twins> createState() => _TwinsState();
+  State<Lalo> createState() => _LaloState();
 }
 
-class _TwinsState extends State<Twins> {
+class _LaloState extends State<Lalo> {
   late AudioPlayer player;
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _TwinsState extends State<Twins> {
             gusDeath(context);
           },
           child: Image.asset(
-            "assets/image/ww.png",
+            "assets/image/meth.png",
             width: 200,
             height: 200,
           ),

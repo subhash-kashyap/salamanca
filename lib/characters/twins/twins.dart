@@ -2,16 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:salamanca/hector/reel.dart';
+import 'package:salamanca/characters/hector/reel.dart';
 
-class Hector extends StatefulWidget {
-  const Hector({super.key});
+class Twins extends StatefulWidget {
+  const Twins({super.key});
 
   @override
-  State<Hector> createState() => _HectorState();
+  State<Twins> createState() => _TwinsState();
 }
 
-class _HectorState extends State<Hector> {
+class _TwinsState extends State<Twins> {
   late AudioPlayer player;
   @override
   void initState() {
@@ -32,16 +32,16 @@ class _HectorState extends State<Hector> {
         child: InkWell(
           enableFeedback: false,
           onTap: () async {
-            log("Ding Pressed");
+            log("Meth Pressed");
             await player.setAsset("assets/audio/hector_salamanca.mp3");
             await player.play();
           },
           onLongPress: () async {
-            log("Ding Pressed long");
+            log("Meth Pressed long");
             gusDeath(context);
           },
           child: Image.asset(
-            "assets/image/hector_salamanca_bell.png",
+            "assets/image/ww.png",
             width: 200,
             height: 200,
           ),

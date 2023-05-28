@@ -2,16 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:salamanca/hector/reel.dart';
+import 'package:salamanca/characters/hector/reel.dart';
 
-class Lalo extends StatefulWidget {
-  const Lalo({super.key});
+class Tuco extends StatefulWidget {
+  const Tuco({super.key});
 
   @override
-  State<Lalo> createState() => _LaloState();
+  State<Tuco> createState() => _TucoState();
 }
 
-class _LaloState extends State<Lalo> {
+class _TucoState extends State<Tuco> {
   late AudioPlayer player;
   @override
   void initState() {

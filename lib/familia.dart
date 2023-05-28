@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:salamanca/lalo/lalo.dart';
-import 'package:salamanca/saul/saul.dart';
-import 'package:salamanca/tuco/tuco.dart';
-import 'package:salamanca/twins/twins.dart';
-import 'hector/hector.dart';
+import 'package:salamanca/characters/lalo/lalo.dart';
+import 'package:salamanca/characters/saul/saul.dart';
+import 'package:salamanca/characters/tuco/tuco.dart';
+import 'package:salamanca/characters/twins/twins.dart';
+import 'characters/hector/hector.dart';
 
 class VillianWidget extends StatelessWidget {
   const VillianWidget({super.key});
