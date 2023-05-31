@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:salamanca/models/chat_model.dart';
 import 'package:salamanca/widgets/chat_widget.dart';
-
+import '../../services/api_services.dart';
 import '../../constants/constants.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -12,14 +15,16 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  bool _isTyping = true;
+  bool _isTyping = false;
 
   late TextEditingController textEditingController;
+  late FocusNode _focusNode;
 
   @override
   void initState() {
     // TODO: implement initState
     textEditingController = TextEditingController();
+    _focusNode = FocusNode();
     super.initState();
   }
 
@@ -27,8 +32,11 @@ class _ChatScreenState extends State<ChatScreen> {
   void dispose() {
     // TODO: implement dispose
     textEditingController.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
+
+  List<SaulModel> chatList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +45,16 @@ class _ChatScreenState extends State<ChatScreen> {
       body: SafeArea(
         child: Column(
           children: [
+            SizedBox(
+              height: 16,
+            ),
             Flexible(
               child: ListView.builder(
-                  itemCount: 6,
+                  itemCount: chatList.length,
                   itemBuilder: (context, index) {
                     return ChatWidget(
-                      chatIndex: int.parse(
-                          chatMessages[index]["chatIndex"].toString()),
-                      msg: chatMessages[index]["msg"].toString(),
+                      chatIndex: chatList[index].chatIndex,
+                      msg: chatList[index].msg,
                     );
                   }),
             ),
@@ -57,29 +67,47 @@ class _ChatScreenState extends State<ChatScreen> {
             SizedBox(
               height: 12,
             ),
-            Material(
-              color: Colors.blueGrey,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: TextField(
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500),
-                      controller: textEditingController,
-                      decoration: InputDecoration.collapsed(
-                        hintText: " What can I do you for Ladies?",
-                        hintStyle: TextStyle(color: Colors.white54),
-                      ),
-                      onSubmitted: (value) {
-                        //send message
-                      },
-                    )),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.send))
-                  ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black12,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(5)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: TextField(
+                        focusNode: _focusNode,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500),
+                        controller: textEditingController,
+                        decoration: const InputDecoration.collapsed(
+                          hintText: " What can I do for you Ladies?",
+                          hintStyle: TextStyle(color: Colors.blueGrey),
+                        ),
+                        onSubmitted: (value) async {
+                          //send message
+                          await sendMessage();
+                          textEditingController.clear();
+                          _focusNode.unfocus();
+                        },
+                      )),
+                      IconButton(
+                          onPressed: () async {
+                            await sendMessage();
+                            textEditingController.clear();
+                            _focusNode.unfocus();
+                          },
+                          icon: Icon(Icons.send))
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -87,5 +115,30 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> sendMessage() async {
+    try {
+      setState(() {
+        _isTyping = true;
+        chatList.add(
+          //Appending user input to the chatlist
+          SaulModel(
+            msg: textEditingController.text,
+            chatIndex: 0,
+          ),
+        );
+      });
+
+      chatList.addAll(
+          await APIservice.saulGPT(userPrompt: textEditingController.text));
+      setState(() {});
+    } catch (e) {
+      log('ERROR $e');
+    } finally {
+      setState(() {
+        _isTyping = false;
+      });
+    }
   }
 }

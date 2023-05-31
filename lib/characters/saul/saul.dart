@@ -24,15 +24,20 @@ class _SaulState extends State<Saul> {
         elevation: 0.0,
         actions: <Widget>[
           TextButton(
-            child: Text("It's all good man"),
+            child: const Text("'s all good man"),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
         ],
       ),
-      body: Center(
-        child: ChatScreen(),
+      body: Container(
+        decoration: BoxDecoration(
+            border: Border(
+                top: BorderSide(width: 2.0, color: Colors.lightBlue.shade600))),
+        child: Center(
+          child: ChatScreen(),
+        ),
       ),
     );
   }
